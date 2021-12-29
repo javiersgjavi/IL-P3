@@ -21,10 +21,7 @@ def main(data, question):
     animal = check_animal(names, question)
 
     if animal:
-        if 'que' and 'familia' in question:
-            res = data.loc[animal, 'Familia']
-
-        elif any(word in question for word in ['especie', 'nombre cientifico']):
+        if any(word in question for word in ['especie', 'nombre cientifico']):
             res = data.loc[animal, 'Especie']
 
         elif any(word in question for word in ['longitud', 'mide', 'centimetros']):
@@ -32,11 +29,20 @@ def main(data, question):
 
         elif any(word in question for word in ['peso', 'pesa', 'kilos']):
             res = data.loc[animal, 'Peso']
-        elif any(word in question for word in ['vive', 'vivir', 'vida' 'años', 'longevidad']):
+        elif any(word in question for word in ['encontrar', 'encuentra', 'area', 'zona', 'habitat', 'donde', 'areas', 'frecuenta', 'frecuentar', 'habitats', 'bioma', 'biomas', 'territorios', 'terrenos']):
+            res = data.loc[animal, 'Habitat']
+        elif any(word in question for word in ['vive', 'vivir', 'vida', 'morir', 'longevidad']):
             res = data.loc[animal, 'Longevidad']
-        elif any(word in question for word in ['alimentacion', 'come', 'comer' 'dieta', 'alimenta']):
+        elif any(word in question for word in ['alimentacion', 'come', 'comer', 'dieta', 'alimenta']):
             res = data.loc[animal, 'Alimentacion']
-
+        elif any(word in question for word in ['salir de cuentas', 'parir', 'parto', 'epoca', 'da a luz', 'dar a luz', 'nacer', 'nace', 'pare', 'nacen', 'paren', 'dan a luz']):
+            res = data.loc[animal, 'Parto']
+        elif any(word in question for word in ['sexual', 'madurez', 'adulto', 'adulta', 'adultez', 'reproducir', 'descendencia', 'aparearse', 'crecer', 'hijos', 'crias', 'sexualmente']):
+            res = data.loc[animal, 'Madurez']
+        elif any(word in question for word in ['amenaza', 'amenazas', 'problema', 'problemas', 'riesgo', 'enfrenta', 'enfrentar', 'enfrentan', 'arriesgan', 'arriesguen', 'amenacen']):
+            res = data.loc[animal, 'Problematicas']
+        elif any(word in question for word in ['familia', 'grupo', 'clado', 'tipo', 'clasifica', 'clasificar']):
+            res = data.loc[animal, 'Familia']
         else:
             res = 'No se encontró respuesta, reformule la pregunta por favor.'
 

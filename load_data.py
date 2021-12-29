@@ -5,21 +5,27 @@ import numpy as np
 
 def get_animal_info(path, file):
     name = file.split('.')[0]
-    with open(f'{path}/{file}', 'r') as f:
+    with open(f'{path}/{file}', 'r', encoding='utf_8') as f:
         info = f.read()
 
     # print(info.split('Especie:'))
+    familia = info.split('Familia:')[1].split('\n')[0].strip()
     especie = info.split('Especie:')[1].split('\n')[0].strip()
     longitud = info.split('Longitud del cuerpo:')[1].split('\n')[0].strip()
     peso = info.split('Peso:')[1].split('\n')[0].strip()
     longevidad = info.split('Longevidad')[1].split('\n')[0][2:].strip()
     alimentacion = info.split('Alimentación')[1].split('\n')[0][2:].strip()
+    parto  = info.split('Época de parto')[1].split('\n')[0][2:].strip()
+    madurez = info.split('Madurez sexual')[1].split('\n')[0][2:].strip()
+    habitat = info.split('Hábitats')[1].split('\n')[0][2:].strip()
+    problematicas = info.split('Principales problemáticas')[1].split('\n')[0][2:].strip()
 
-    return name, [0, especie, longitud, peso, longevidad, alimentacion, 0, 0, 0]
+    return name, [familia, especie, longitud, peso, longevidad, alimentacion, parto,  madurez, habitat, problematicas]
+    #return name, [familia, especie, longitud, peso, longevidad, 0, parto, madurez, habitat, problematicas]
 
 
 def main(path):
-    colums = ['Familia', 'Especie', 'Longitud', 'Peso', 'Longevidad', 'Alimentacion', 'Madurez', 'Habitat',
+    colums = ['Familia', 'Especie', 'Longitud', 'Peso', 'Longevidad', 'Alimentacion','Parto', 'Madurez', 'Habitat',
               'Problematicas']
     data = pd.DataFrame(columns=colums)
 

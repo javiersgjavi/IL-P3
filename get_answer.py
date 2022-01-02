@@ -1,3 +1,15 @@
+import re
+
+species_keywords = ['especie', 'nombre cientifico']
+length_keywords = ['longitud', 'mide', 'centimetros']
+weight_keywords =  ['peso', 'pesa', 'kilos']
+diet_keywords =  ['alimentacion', 'come', 'comer', 'dieta', 'alimenta']
+habitat_keywords = ['encontrar', 'encuentra', 'area', 'zona', 'habitat', 'donde', 'areas', 'frecuenta', 'frecuentar', 'habitats', 'bioma', 'biomas', 'territorios', 'terrenos']
+longevity_keywords =  ['vive', 'vivir', 'vida', 'morir', 'longevidad']
+birth_keywords =  ['salir de cuentas', 'parir', 'parto', 'epoca', 'da a luz', 'dar a luz', 'nacer', 'nace', 'pare', 'nacen', 'paren', 'dan a luz']
+maduration_keywords = ['sexual', 'madurez', 'adulto', 'adulta', 'adultez', 'reproducir', 'descendencia', 'aparearse', 'crecer', 'hijos', 'crias', 'sexualmente']
+problems_keywords = ['amenaza', 'mortandad', 'mortalidad', 'amenazas', 'problema', 'problemas', 'riesgo', 'enfrenta', 'enfrentar', 'enfrentan', 'arriesgan', 'arriesguen', 'amenacen']
+family_keywords = ['familia', 'grupo', 'clado', 'tipo', 'clasifica', 'clasificar']
 def clean_text(text):
     text = text.replace('á', 'a')
     text = text.replace('é', 'e')
@@ -15,41 +27,98 @@ def check_animal(names, question):
     return None
 
 
+def clean_answer(original_text, category):
+    cleaner_text = re.sub("[\(\[].*?[\)\]]", "", original_text)
+    if category != 'Peso' and category != 'Longitud':
+        sentences = cleaner_text.split('.')
+        cleaner_text = best_sentence(sentences, category)
+    cleaner_text = cleaner_text.rstrip('. ')
+    cleaner_text = cleaner_text.lstrip()
+    cleaner_text = cleaner_text + '.'
+    cleaner_text = cleaner_text.capitalize()
+    return cleaner_text
+
+def best_sentence(sentences, category):
+    for sentence in sentences:
+        if category == 'Especie':
+            if any (word in sentence for word in species_keywords):
+                return sentence
+        elif category == 'Longitud':
+            if any (word in sentence for word in length_keywords):
+                return sentence
+        elif category == 'Peso':
+            if any (word in sentence for word in weight_keywords):
+                return sentence
+        elif category == 'Habitat':
+            if any (word in sentence for word in habitat_keywords):
+                return sentence
+        elif category == 'Longevidad':
+            if any (word in sentence for word in longevity_keywords):
+                return sentence
+        elif category == 'Alimentacion':
+            if any (word in sentence for word in diet_keywords):
+                return sentence
+        elif category == 'Parto':
+            if any (word in sentence for word in birth_keywords):
+                return sentence
+        elif category == 'Madurez':
+            if any (word in sentence for word in maduration_keywords):
+                return sentence
+        elif category == 'Problematicas':
+            if any (word in sentence for word in problems_keywords):
+                return sentence
+        elif category == 'Familia':
+            if any (word in sentence for word in family_keywords):
+                return sentence
+    else:
+        return sentences[0]
+
 def main(data, question):
     names = data.index
     question = clean_text(question)
     animal = check_animal(names, question)
-
+    res = 'this is a string'
+    category = ''
     if animal:
-        if any(word in question for word in ['especie', 'nombre cientifico']):
-            res = data.loc[animal, 'Especie']
+        if any(word in question for word in species_keywords):
+            category = 'Especie'
+            res = data.loc[animal, category]
 
-        elif any(word in question for word in ['longitud', 'mide', 'centimetros']):
-            res = data.loc[animal, 'Longitud']
+        elif any(word in question for word in length_keywords):
+            category = 'Longitud'
+            res = data.loc[animal, category]
 
-        elif any(word in question for word in ['peso', 'pesa', 'kilos']):
-            res = data.loc[animal, 'Peso']
-        elif any(word in question for word in ['encontrar', 'encuentra', 'area', 'zona', 'habitat', 'donde', 'areas', 'frecuenta', 'frecuentar', 'habitats', 'bioma', 'biomas', 'territorios', 'terrenos']):
-            res = data.loc[animal, 'Habitat']
-        elif any(word in question for word in ['vive', 'vivir', 'vida', 'morir', 'longevidad']):
-            res = data.loc[animal, 'Longevidad']
-        elif any(word in question for word in ['alimentacion', 'come', 'comer', 'dieta', 'alimenta']):
-            res = data.loc[animal, 'Alimentacion']
-        elif any(word in question for word in ['salir de cuentas', 'parir', 'parto', 'epoca', 'da a luz', 'dar a luz', 'nacer', 'nace', 'pare', 'nacen', 'paren', 'dan a luz']):
-            res = data.loc[animal, 'Parto']
-        elif any(word in question for word in ['sexual', 'madurez', 'adulto', 'adulta', 'adultez', 'reproducir', 'descendencia', 'aparearse', 'crecer', 'hijos', 'crias', 'sexualmente']):
-            res = data.loc[animal, 'Madurez']
-        elif any(word in question for word in ['amenaza', 'amenazas', 'problema', 'problemas', 'riesgo', 'enfrenta', 'enfrentar', 'enfrentan', 'arriesgan', 'arriesguen', 'amenacen']):
-            res = data.loc[animal, 'Problematicas']
-        elif any(word in question for word in ['familia', 'grupo', 'clado', 'tipo', 'clasifica', 'clasificar']):
-            res = data.loc[animal, 'Familia']
+        elif any(word in question for word in weight_keywords):
+            category = 'Peso'
+            res = data.loc[animal, category]
+        elif any(word in question for word in habitat_keywords):
+            category = 'Habitat'
+            res = data.loc[animal, category]
+        elif any(word in question for word in longevity_keywords):
+            category = 'Longevidad'
+            res = data.loc[animal, category]
+        elif any(word in question for word in diet_keywords):
+            category = 'Alimentacion'
+            res = data.loc[animal, category]
+        elif any(word in question for word in birth_keywords):
+            category = 'Parto'
+            res = data.loc[animal, category]
+        elif any(word in question for word in maduration_keywords):
+            category = 'Madurez'
+            res = data.loc[animal, category]
+        elif any(word in question for word in problems_keywords):
+            category = 'Problematicas'
+            res = data.loc[animal, category]
+        elif any(word in question for word in family_keywords):
+            category = 'Familia'
+            res = data.loc[animal, category]
         else:
             res = 'No se encontró respuesta, reformule la pregunta por favor.'
 
     else:
         res = 'No se ha encontrado ningún animal con ese nombre, intente de nuevo.'
 
-    return res
+    return clean_answer(res, category)
 
 
 if __name__ == '__main__':

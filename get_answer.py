@@ -2,14 +2,21 @@ import re
 
 species_keywords = ['especie', 'nombre cientifico']
 length_keywords = ['longitud', 'mide', 'centimetros']
-weight_keywords =  ['peso', 'pesa', 'kilos']
-diet_keywords =  ['alimentacion', 'come', 'comer', 'dieta', 'alimenta']
-habitat_keywords = ['encontrar', 'encuentra', 'area', 'zona', 'habitat', 'donde', 'areas', 'frecuenta', 'frecuentar', 'habitats', 'bioma', 'biomas', 'territorios', 'terrenos']
-longevity_keywords =  ['vive', 'vivir', 'vida', 'morir', 'longevidad']
-birth_keywords =  ['salir de cuentas', 'parir', 'parto', 'epoca', 'da a luz', 'dar a luz', 'nacer', 'nace', 'pare', 'nacen', 'paren', 'dan a luz']
-maduration_keywords = ['sexual', 'madurez', 'adulto', 'adulta', 'adultez', 'reproducir', 'descendencia', 'aparearse', 'crecer', 'hijos', 'crias', 'sexualmente']
-problems_keywords = ['amenaza', 'mortandad', 'mortalidad', 'amenazas', 'problema', 'problemas', 'riesgo', 'enfrenta', 'enfrentar', 'enfrentan', 'arriesgan', 'arriesguen', 'amenacen']
+weight_keywords = ['peso', 'pesa', 'kilos']
+diet_keywords = ['alimentacion', 'come', 'comer', 'dieta', 'alimenta']
+habitat_keywords = ['encontrar', 'encuentra', 'area', 'zona', 'habitat', 'donde', 'areas', 'frecuenta', 'frecuentar',
+                    'habitats', 'bioma', 'biomas', 'territorios', 'terrenos']
+longevity_keywords = ['vive', 'vivir', 'vida', 'morir', 'longevidad']
+birth_keywords = ['salir de cuentas', 'parir', 'parto', 'epoca', 'da a luz', 'dar a luz', 'nacer', 'nace', 'pare',
+                  'nacen', 'paren', 'dan a luz']
+maduration_keywords = ['sexual', 'madurez', 'adulto', 'adulta', 'adultez', 'reproducir', 'descendencia', 'aparearse',
+                       'crecer', 'hijos', 'crias', 'sexualmente']
+problems_keywords = ['amenaza', 'mortandad', 'mortalidad', 'amenazas', 'problema', 'problemas', 'riesgo', 'enfrenta',
+                     'enfrentar', 'enfrentan', 'arriesgan', 'arriesguen', 'amenacen']
 family_keywords = ['familia', 'grupo', 'clado', 'tipo', 'clasifica', 'clasificar']
+list_keywords = [['cuales', 'que', 'listado', 'cuantos'], ['animales', 'especies']]
+
+
 def clean_text(text):
     text = text.replace('á', 'a')
     text = text.replace('é', 'e')
@@ -38,46 +45,47 @@ def clean_answer(original_text, category):
     cleaner_text = cleaner_text.capitalize()
     return cleaner_text
 
+
 def best_sentence(sentences, category):
     for sentence in sentences:
         if category == 'Especie':
-            if any (word in sentence for word in species_keywords):
+            if any(word in sentence for word in species_keywords):
                 return sentence
         elif category == 'Longitud':
-            if any (word in sentence for word in length_keywords):
+            if any(word in sentence for word in length_keywords):
                 return sentence
         elif category == 'Peso':
-            if any (word in sentence for word in weight_keywords):
+            if any(word in sentence for word in weight_keywords):
                 return sentence
         elif category == 'Habitat':
-            if any (word in sentence for word in habitat_keywords):
+            if any(word in sentence for word in habitat_keywords):
                 return sentence
         elif category == 'Longevidad':
-            if any (word in sentence for word in longevity_keywords):
+            if any(word in sentence for word in longevity_keywords):
                 return sentence
         elif category == 'Alimentacion':
-            if any (word in sentence for word in diet_keywords):
+            if any(word in sentence for word in diet_keywords):
                 return sentence
         elif category == 'Parto':
-            if any (word in sentence for word in birth_keywords):
+            if any(word in sentence for word in birth_keywords):
                 return sentence
         elif category == 'Madurez':
-            if any (word in sentence for word in maduration_keywords):
+            if any(word in sentence for word in maduration_keywords):
                 return sentence
         elif category == 'Problematicas':
-            if any (word in sentence for word in problems_keywords):
+            if any(word in sentence for word in problems_keywords):
                 return sentence
         elif category == 'Familia':
-            if any (word in sentence for word in family_keywords):
+            if any(word in sentence for word in family_keywords):
                 return sentence
     else:
         return sentences[0]
+
 
 def main(data, question):
     names = data.index
     question = clean_text(question)
     animal = check_animal(names, question)
-    res = 'this is a string'
     category = ''
     if animal:
         if any(word in question for word in species_keywords):
@@ -116,7 +124,11 @@ def main(data, question):
             res = 'No se encontró respuesta, reformule la pregunta por favor.'
 
     else:
-        res = 'No se ha encontrado ningún animal con ese nombre, intente de nuevo.'
+        if any(word in question for word in list_keywords[0]) and any(word in question for word in list_keywords[1]):
+            animals = data.index
+            res = f'Existen {len(animals)} especies disponibles: ' + ', '.join(data.index)
+        else:
+            res = 'No se ha encontrado ningún animal con ese nombre, intente de nuevo.'
 
     return clean_answer(res, category)
 

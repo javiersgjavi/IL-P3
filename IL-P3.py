@@ -6,9 +6,9 @@ def main():
     data = load_data.main('./datos')
 
     question = ''
-    while question != 'exit':
+    while question != 'exit' and question != 'salir':
         question = input('Pregunta: ')
-        if question == 'exit':
+        if question == 'exit' or question == 'salir':
             pass
         else:
             answer = get_answer.main(data, question)

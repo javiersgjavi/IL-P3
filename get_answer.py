@@ -7,7 +7,7 @@ diet_keywords = ['come', 'dieta', 'alimenta', 'alimento', 'comida']
 habitat_keywords = ['encuentra', 'encontrar', 'area', 'zona', 'habitat', 'donde', 'frecuenta',
                      'bioma' 'territorios', 'terrenos']
 longevity_keywords = ['vive', 'vivir', 'vida', 'morir', 'longevidad']
-birth_keywords = ['salir de cuentas', 'parir', 'parto', 'epoca', 'a luz', 'nacer', 'nace', 'pare']
+birth_keywords = ['salir de cuentas', 'parir', 'parto', 'epoca', 'a luz', 'nace', 'pare']
 maduration_keywords = ['sexual', 'madurez', 'adulto', 'adulta', 'adultez', 'reproducir', 'descendencia', 'aparearse',
                        'crecer', 'hijos', 'crias']
 problems_keywords = ['amenaza', 'mortandad', 'mortalidad', 'problema', 'riesgo', 'enfrenta', 'arriesgan', 'arriesguen', 'amenacen']

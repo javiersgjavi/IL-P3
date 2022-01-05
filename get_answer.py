@@ -3,17 +3,15 @@ import re
 species_keywords = ['especie', 'nombre cientifico']
 length_keywords = ['longitud', 'mide', 'centimetros']
 weight_keywords = ['peso', 'pesa', 'kilos']
-diet_keywords = ['alimentacion', 'come', 'comer', 'dieta', 'alimenta']
-habitat_keywords = ['encontrar', 'encuentra', 'area', 'zona', 'habitat', 'donde', 'areas', 'frecuenta', 'frecuentar',
-                    'habitats', 'bioma', 'biomas', 'territorios', 'terrenos']
+diet_keywords = ['come', 'dieta', 'alimenta']
+habitat_keywords = ['encuentra', 'area', 'zona', 'habitat', 'donde', 'frecuenta',
+                     'bioma' 'territorios', 'terrenos']
 longevity_keywords = ['vive', 'vivir', 'vida', 'morir', 'longevidad']
-birth_keywords = ['salir de cuentas', 'parir', 'parto', 'epoca', 'da a luz', 'dar a luz', 'nacer', 'nace', 'pare',
-                  'nacen', 'paren', 'dan a luz']
+birth_keywords = ['salir de cuentas', 'parir', 'parto', 'epoca', 'a luz', 'nacer', 'nace', 'pare']
 maduration_keywords = ['sexual', 'madurez', 'adulto', 'adulta', 'adultez', 'reproducir', 'descendencia', 'aparearse',
-                       'crecer', 'hijos', 'crias', 'sexualmente']
-problems_keywords = ['amenaza', 'mortandad', 'mortalidad', 'amenazas', 'problema', 'problemas', 'riesgo', 'enfrenta',
-                     'enfrentar', 'enfrentan', 'arriesgan', 'arriesguen', 'amenacen']
-family_keywords = ['familia', 'grupo', 'clado', 'tipo', 'clasifica', 'clasificar']
+                       'crecer', 'hijos', 'crias']
+problems_keywords = ['amenaza', 'mortandad', 'mortalidad', 'problema', 'riesgo', 'enfrenta', 'arriesgan', 'arriesguen', 'amenacen']
+family_keywords = ['familia', 'grupo', 'clado', 'tipo', 'clasifica']
 list_keywords = [['cuales', 'que', 'listado', 'cuantos'], ['animales', 'especies']]
 
 

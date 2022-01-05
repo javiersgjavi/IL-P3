@@ -1,10 +1,10 @@
 import re
 
 species_keywords = ['especie', 'nombre cientifico']
-length_keywords = ['longitud', 'mide', 'centimetros']
-weight_keywords = ['peso', 'pesa', 'kilos']
-diet_keywords = ['come', 'dieta', 'alimenta']
-habitat_keywords = ['encuentra', 'area', 'zona', 'habitat', 'donde', 'frecuenta',
+length_keywords = ['longitud', 'mide', 'centimetros', 'metros', 'largo', 'cm']
+weight_keywords = ['peso', 'pesa', 'kilos', 'masa', 'gramos', 'kg']
+diet_keywords = ['come', 'dieta', 'alimenta', 'alimento', 'comida']
+habitat_keywords = ['encuentra', 'encontrar', 'area', 'zona', 'habitat', 'donde', 'frecuenta',
                      'bioma' 'territorios', 'terrenos']
 longevity_keywords = ['vive', 'vivir', 'vida', 'morir', 'longevidad']
 birth_keywords = ['salir de cuentas', 'parir', 'parto', 'epoca', 'a luz', 'nacer', 'nace', 'pare']

@@ -1,7 +1,7 @@
 import re
 
 species_keywords = ['especie', 'nombre cientifico']
-length_keywords = ['longitud', 'mide', 'centimetros', 'metros', 'largo', 'cm']
+length_keywords = ['longitud', 'mide', 'metros', 'largo', 'cm']
 weight_keywords = ['peso', 'pesa', 'kilos', 'masa', 'gramos', 'kg']
 diet_keywords = ['come', 'dieta', 'alimenta', 'alimento', 'comida']
 habitat_keywords = ['encuentra', 'encontrar', 'area', 'zona', 'habitat', 'donde', 'frecuenta',

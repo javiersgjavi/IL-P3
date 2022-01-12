@@ -1,16 +1,16 @@
 import re
 
 species_keywords = ['especie', 'nombre cientifico']
-length_keywords = ['longitud', 'mide', 'metros', 'largo', 'cm']
+length_keywords = ['longitud', 'mide', 'metros', 'largo', 'cm', 'tamaño']
 weight_keywords = ['peso', 'pesa', 'kilos', 'masa', 'gramos', 'kg']
 diet_keywords = ['come', 'dieta', 'alimenta', 'alimento', 'comida']
 habitat_keywords = ['encuentra', 'encontrar', 'area', 'zona', 'habitat', 'donde', 'frecuenta',
-                     'bioma' 'territorios', 'terrenos']
-longevity_keywords = ['vive', 'vivir', 'vida', 'morir', 'longevidad']
+                     'bioma' 'territorio', 'terreno']
+longevity_keywords = ['vive', 'vivir', 'vida', 'morir', 'longevidad', 'año']
 birth_keywords = ['salir de cuentas', 'parir', 'parto', 'epoca', 'a luz', 'nace', 'pare']
 maduration_keywords = ['sexual', 'madurez', 'adulto', 'adulta', 'adultez', 'reproducir', 'descendencia', 'aparearse',
-                       'crecer', 'hijos', 'crias']
-problems_keywords = ['amenaza', 'mortandad', 'mortalidad', 'problema', 'riesgo', 'enfrenta', 'arriesgan', 'arriesguen', 'amenacen']
+                       'crecer', 'hijos', 'cria']
+problems_keywords = ['amenaza', 'mortandad', 'mortalidad', 'problema', 'riesgo', 'enfrenta', 'arriesgan', 'arriesguen', 'amenacen', 'peligro']
 family_keywords = ['familia', 'grupo', 'clado', 'tipo', 'clasifica']
 list_keywords = [['cuales', 'que', 'listado', 'cuantos'], ['animales', 'especies']]
 
@@ -58,9 +58,6 @@ def best_sentence(sentences, category):
         elif category == 'Habitat':
             if any(word in sentence for word in habitat_keywords):
                 return sentence
-        elif category == 'Longevidad':
-            if any(word in sentence for word in longevity_keywords):
-                return sentence
         elif category == 'Alimentacion':
             if any(word in sentence for word in diet_keywords):
                 return sentence
@@ -72,6 +69,9 @@ def best_sentence(sentences, category):
                 return sentence
         elif category == 'Problematicas':
             if any(word in sentence for word in problems_keywords):
+                return sentence
+        elif category == 'Longevidad':
+            if any(word in sentence for word in longevity_keywords):
                 return sentence
         elif category == 'Familia':
             if any(word in sentence for word in family_keywords):
